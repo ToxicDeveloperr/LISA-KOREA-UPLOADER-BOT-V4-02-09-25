@@ -3,8 +3,9 @@ FROM python:3.12-alpine3.20
 WORKDIR /app
 
 # Use 'apk' to install packages on Alpine Linux
-# The 'build-base' package is needed for compiling many Python packages.
-RUN apk add --no-cache ffmpeg jq python3-dev build-base
+# 'build-base' provides a C compiler.
+# 'linux-headers' provides kernel headers needed for packages like psutil.
+RUN apk add --no-cache ffmpeg jq python3-dev build-base linux-headers
 
 COPY requirements.txt .
 
