@@ -110,11 +110,12 @@ async def add_caption_help(bot, update):
     )
 
 
-@Client.on_callback_query(filters.regex('^cancel_download\+'))
+# 'r' lagane se Python backslash ko special character nahi maanega
+@Client.on_callback_query(filters.regex(r'^cancel_download\+'))
 async def cancel_cb(c, m):
     await m.answer()
     await m.message.edit(text="Trying to Cancel")
-    id = m.data.split("+", 1)[1]
+    id = m.data.split("+", 1)[13]
     if id not in Config.DOWNLOAD_LOCATION:
         await m.message.edit("This process already cancelled reason may be bot restarted")
         return
